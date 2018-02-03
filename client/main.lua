@@ -131,7 +131,7 @@ function OpenMecanoActionsMenu()
                 'default', GetCurrentResourceName(), 'vehicle_spawner',
                 {
                   title    = _U('service_vehicle'),
-                  align    = 'top-left',
+                  align    = 'bottom-right',
                   elements = elements,
                 },
                 function(data, menu)
@@ -601,7 +601,7 @@ function OpenMobileMecanoActionsMenu()
           'default', GetCurrentResourceName(), 'mobile_mecano_actions_spawn',
           {
             title    = _U('objects'),
-            align    = 'top-left',
+            align    = 'bottom-right',
             elements = {
               {label = _U('roadcone'),     value = 'prop_roadcone02a'},
               {label = _U('toolbox'), value = 'prop_toolchest_01'},
