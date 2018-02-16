@@ -5,8 +5,8 @@ Config.MarkerSize                 = { x = 1.5, y = 1.5, z = 1.0 }
 Config.MarkerColor                = { r = 50, g = 50, b = 204 }
 Config.MaxInService               = -1
 Config.EnablePlayerManagement     = true
-Config.EnableSocietyOwnedVehicles = false
-Config.EnableArmoryManagement     = false -- should mechanics be able to buy guns?
+Config.EnableSocietyOwnedVehicles = true
+Config.EnableArmoryManagement     = true -- should mechanics be able to buy guns?
 Config.NPCSpawnDistance           = 500.0
 Config.NPCNextToDistance          = 25.0
 Config.NPCJobEarnings             = { min = 1000, max = 2000 }
