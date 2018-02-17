@@ -1,82 +1,53 @@
 Config                            = {}
 Config.DrawDistance               = 100.0
-Config.MarkerType                 = 1
-Config.MarkerSize                 = { x = 1.5, y = 1.5, z = 1.0 }
-Config.MarkerColor                = { r = 50, g = 50, b = 204 }
 Config.MaxInService               = -1
 Config.EnablePlayerManagement     = true
-Config.EnableSocietyOwnedVehicles = true
-Config.EnableArmoryManagement     = true -- should mechanics be able to buy guns?
+Config.EnableSocietyOwnedVehicles = false
 Config.NPCSpawnDistance           = 500.0
 Config.NPCNextToDistance          = 25.0
-Config.NPCJobEarnings             = { min = 1000, max = 2000 }
+Config.NPCJobEarnings             = { min = 15, max = 40 }
 Config.Locale                     = 'en'
 
 Config.Zones = {
+  MecanoActions = {
+    Pos   = { x = -347.291, y = -133.370, z = 38.009 },
+    Size  = { x = 1.5, y = 1.5, z = 1.0 },
+    Color = { r = 204, g = 204, b = 0 },
+    Type  = 1,
+  },
+
+  Garage = {
+    Pos   = { x = -97.5797576904297, y = 6496.11376953125, z = 30.4909038543701 },
+    Size  = { x = 1.5, y = 1.5, z = 1.0 },
+    Color = { r = 204, g = 204, b = 0 },
+    Type  = 1,
+  },
+
+  Craft = {
+    Pos   = { x = -323.140, y = -129.882, z = 37.999 },
+    Size  = { x = 1.5, y = 1.5, z = 1.0 },
+    Color = { r = 204, g = 204, b = 0 },
+    Type  = 1,
+  },
+
+  VehicleSpawnPoint = {
+    Pos   = { x = -366.354, y = -110.766, z = 37.696 },
+    Size  = { x = 1.5, y = 1.5, z = 1.0 },
+    Type  = -1,
+  },
+
+  VehicleDeleter = {
+    Pos   = { x = -386.899, y = -105.675, z = 37.683 },
+    Size  = { x = 3.0, y = 3.0, z = 1.0 },
+    Color = { r = 204, g = 204, b = 0 },
+    Type  = 1,
+  },
 
   VehicleDelivery = {
     Pos   = { x = -382.925, y = -133.748, z = 37.685 },
     Size  = { x = 20.0, y = 20.0, z = 3.0 },
     Color = { r = 204, g = 204, b = 0 },
     Type  = -1,
-  },
-}
-
-Config.MecanoStations = {
-  Mecano = {
-
-    Blip = {
-      Pos     = { x = -1140.6988525391, y = -2006.8569335938, z = 12.180252075195 },
-      Sprite  = 446,
-      Display = 4,
-      Scale   = 1.2,
-      Colour  = 5,
-    },
-
-    AuthorizedWeapons = {
-      { name = 'WEAPON_HAMMER', price = 150 },
-      { name = 'WEAPON_CROWBAR', price = 200 },
-    },
-
-    AuthorizedVehicles = {
-      { name = 'flatbed',   label = 'flatbed' },
-      { name = 'towtruck2', label = 'towtruck2' },
-      { name = 'towtruck', label = 'towtruck' },
-      { name = 'UtilliTruck3', label = 'UtilliTruck' },
-    },
-
-    Cloakrooms = {
-      { x = -1140.6988525391, y = -2006.8569335938, z = 12.180252075195 },
-    },
-
-    Armories = {
-      { x = -1148.5084228516, y = -1999.5798339844, z = 12.18025970459 },
-    },
-
-    Vehicles = {
-      {
-        Spawner    = { x = -1142.4367675781, y = -1992.8526611328, z = 12.164148330688 },
-        SpawnPoint = { x = -1122.9372558594, y = -1989.3012695313, z = 11.938163757324 },
-        Heading    = 354.35,
-      }
-    },
-
-    VehicleDeleters = {
-      { x = -1108.2371826172, y = -2012.1618652344, z = 11.947685241699 },
-    },
-
-    BossActions = {
-      { x = -1163.5065917969, y = -2021.4110107422, z = 12.180261611938 },
-    },
-
-    Garage = {
-      { x = -97.5797576904297, y = 6496.11376953125, z = 30.4909038543701 },
-    },
-
-    Craft = {
-      { x = -1155.2877197266, y = -2023.0275878906, z = 12.172540664673 },
-    },
-
   },
 }
 

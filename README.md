@@ -1,4 +1,4 @@
-# ESX-Org-esx_mecanojob
+# fxserver-esx_mecanojob
 
 FXServer ESX Mecano Job
 

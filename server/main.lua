@@ -26,7 +26,7 @@ local function Harvest(source)
       local xPlayer  = ESX.GetPlayerFromId(source)
       local GazBottleQuantity = xPlayer.getInventoryItem('gazbottle').count
 
-      if GazBottleQuantity >= 20 then
+      if GazBottleQuantity >= 5 then
         TriggerClientEvent('esx:showNotification', source, _U('you_do_not_room'))
       else
                 xPlayer.addInventoryItem('gazbottle', 1)
@@ -59,7 +59,7 @@ local function Harvest2(source)
 
       local xPlayer  = ESX.GetPlayerFromId(source)
       local FixToolQuantity  = xPlayer.getInventoryItem('fixtool').count
-      if FixToolQuantity >= 20 then
+      if FixToolQuantity >= 5 then
         TriggerClientEvent('esx:showNotification', source, _U('you_do_not_room'))
       else
                 xPlayer.addInventoryItem('fixtool', 1)
@@ -92,7 +92,7 @@ local function Harvest3(source)
 
       local xPlayer  = ESX.GetPlayerFromId(source)
       local CaroToolQuantity  = xPlayer.getInventoryItem('carotool').count
-            if CaroToolQuantity >= 20 then
+            if CaroToolQuantity >= 5 then
         TriggerClientEvent('esx:showNotification', source, _U('you_do_not_room'))
       else
                 xPlayer.addInventoryItem('carotool', 1)
@@ -116,7 +116,7 @@ AddEventHandler('esx_mecanojob:stopHarvest3', function()
   local _source = source
   PlayersHarvesting3[_source] = false
 end)
------------- Craft blowpipe -------------------
+------------ Craft Chalumeau -------------------
 local function Craft(source)
 
   SetTimeout(4000, function()
@@ -151,7 +151,7 @@ AddEventHandler('esx_mecanojob:stopCraft', function()
   local _source = source
   PlayersCrafting[_source] = false
 end)
------------- Craft kit Repair --------------
+------------ Craft kit Réparation --------------
 local function Craft2(source)
 
   SetTimeout(4000, function()
@@ -176,7 +176,7 @@ RegisterServerEvent('esx_mecanojob:startCraft2')
 AddEventHandler('esx_mecanojob:startCraft2', function()
   local _source = source
   PlayersCrafting2[_source] = true
-  TriggerClientEvent('esx:showNotification', _source, _U('assembling_repair_kit'))
+  TriggerClientEvent('esx:showNotification', _source, _U('assembling_blowtorch'))
   Craft2(_source)
 end)
 
@@ -185,7 +185,7 @@ AddEventHandler('esx_mecanojob:stopCraft2', function()
   local _source = source
   PlayersCrafting2[_source] = false
 end)
------------------ Craft kit Body parts ----------------
+----------------- Craft kit Carosserie ----------------
 local function Craft3(source)
 
   SetTimeout(4000, function()
@@ -324,8 +324,9 @@ AddEventHandler('esx_mecanojob:putStockItems', function(itemName, count)
   TriggerEvent('esx_addoninventory:getSharedInventory', 'society_mecano', function(inventory)
 
     local item = inventory.getItem(itemName)
+    local playerItemCount = xPlayer.getInventoryItem(itemName).count
 
-    if item.count >= 0 then
+    if item.count >= 0 and count <= playerItemCount then
       xPlayer.removeInventoryItem(itemName, count)
       inventory.addItem(itemName, count)
     else
@@ -337,115 +338,6 @@ AddEventHandler('esx_mecanojob:putStockItems', function(itemName, count)
   end)
 
 end)
-
-ESX.RegisterServerCallback('esx_mecanojob:getArmoryWeapons', function(source, cb)
-
-  TriggerEvent('esx_datastore:getSharedDataStore', 'society_mecano', function(store)
-
-    local weapons = store.get('weapons')
-
-    if weapons == nil then
-      weapons = {}
-    end
-
-    cb(weapons)
-
-  end)
-
-end)
-
-ESX.RegisterServerCallback('esx_mecanojob:addArmoryWeapon', function(source, cb, weaponName)
-
-  local xPlayer = ESX.GetPlayerFromId(source)
-
-  xPlayer.removeWeapon(weaponName)
-
-  TriggerEvent('esx_datastore:getSharedDataStore', 'society_mecano', function(store)
-
-    local weapons = store.get('weapons')
-
-    if weapons == nil then
-      weapons = {}
-    end
-
-    local foundWeapon = false
-
-    for i=1, #weapons, 1 do
-      if weapons[i].name == weaponName then
-        weapons[i].count = weapons[i].count + 1
-        foundWeapon = true
-      end
-    end
-
-    if not foundWeapon then
-      table.insert(weapons, {
-        name  = weaponName,
-        count = 1
-      })
-    end
-
-     store.set('weapons', weapons)
-
-     cb()
-
-  end)
-
-end)
-
-ESX.RegisterServerCallback('esx_mecanojob:removeArmoryWeapon', function(source, cb, weaponName)
-
-  local xPlayer = ESX.GetPlayerFromId(source)
-
-  xPlayer.addWeapon(weaponName, 1000)
-
-  TriggerEvent('esx_datastore:getSharedDataStore', 'society_mecano', function(store)
-
-    local weapons = store.get('weapons')
-
-    if weapons == nil then
-      weapons = {}
-    end
-
-    local foundWeapon = false
-
-    for i=1, #weapons, 1 do
-      if weapons[i].name == weaponName then
-        weapons[i].count = (weapons[i].count > 0 and weapons[i].count - 1 or 0)
-        foundWeapon = true
-      end
-    end
-
-    if not foundWeapon then
-      table.insert(weapons, {
-        name  = weaponName,
-        count = 0
-      })
-    end
-
-     store.set('weapons', weapons)
-
-     cb()
-
-  end)
-
-end)
-
-
-ESX.RegisterServerCallback('esx_mecanojob:buy', function(source, cb, amount)
-
-  TriggerEvent('esx_addonaccount:getSharedAccount', 'society_mecano', function(account)
-
-    if account.money >= amount then
-      account.removeMoney(amount)
-      cb(true)
-    else
-      cb(false)
-    end
-
-  end)
-
-end)
-
 
 --ESX.RegisterServerCallback('esx_mecanojob:putStockItems', function(source, cb)
 
@@ -463,118 +355,5 @@ ESX.RegisterServerCallback('esx_mecanojob:getPlayerInventory', function(source, 
   cb({
     items      = items
   })
-
-end)
-
-
-ESX.RegisterServerCallback('esx_mecanojob:getVehicleInfos', function(source, cb, plate)
-
-  if Config.EnableESXIdentity then
-
-    MySQL.Async.fetchAll(
-      'SELECT * FROM owned_vehicles',
-      {},
-      function(result)
-
-        local foundIdentifier = nil
-
-        for i=1, #result, 1 do
-
-          local vehicleData = json.decode(result[i].vehicle)
-
-          if vehicleData.plate == plate then
-            foundIdentifier = result[i].owner
-            break
-          end
-
-        end
-
-        if foundIdentifier ~= nil then
-
-          MySQL.Async.fetchAll(
-            'SELECT * FROM users WHERE identifier = @identifier',
-            {
-              ['@identifier'] = foundIdentifier
-            },
-            function(result)
-
-              local ownerName = result[1].firstname .. " " .. result[1].lastname
-
-              local infos = {
-                plate = plate,
-                owner = ownerName
-              }
-
-              cb(infos)
-
-            end
-          )
-
-        else
-
-          local infos = {
-          plate = plate
-          }
-
-          cb(infos)
-
-        end
-
-      end
-    )
-
-  else
-
-    MySQL.Async.fetchAll(
-      'SELECT * FROM owned_vehicles',
-      {},
-      function(result)
-
-        local foundIdentifier = nil
-
-        for i=1, #result, 1 do
-
-          local vehicleData = json.decode(result[i].vehicle)
-
-          if vehicleData.plate == plate then
-            foundIdentifier = result[i].owner
-            break
-          end
-
-        end
-
-        if foundIdentifier ~= nil then
-
-          MySQL.Async.fetchAll(
-            'SELECT * FROM users WHERE identifier = @identifier',
-            {
-              ['@identifier'] = foundIdentifier
-            },
-            function(result)
-
-              local infos = {
-                plate = plate,
-                owner = result[1].name
-              }
-
-              cb(infos)
-
-            end
-          )
-
-        else
-
-          local infos = {
-          plate = plate
-          }
-
-          cb(infos)
-
-        end
-
-      end
-    )
-
-  end
 
 end)
