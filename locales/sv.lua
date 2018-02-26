@@ -78,5 +78,5 @@ Locales['sv'] = {
   ['you_used_repair_kit']       = 'du har använt en ~b~reparationssats~w~',
   ['you_used_body_kit']         = 'du har använt en ~b~karossverktyg~w~',
   ['you_removed']               = 'du har ~r~tagit bort~w~ x',
-  ['you_added']                 = 'du ~y~la till~w~ x',
+  ['you_added']                 = 'du ~y~la till~w~ x'
 }
