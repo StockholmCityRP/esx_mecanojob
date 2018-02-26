@@ -112,6 +112,7 @@ function OpenMecanoActionsMenu()
     'default', GetCurrentResourceName(), 'mecano_actions',
     {
       title    = _U('mechanic'),
+	  align    = 'bottom-right',
       elements = elements
     },
     function(data, menu)
@@ -131,7 +132,7 @@ function OpenMecanoActionsMenu()
                 'default', GetCurrentResourceName(), 'vehicle_spawner',
                 {
                   title    = _U('service_vehicle'),
-                  align    = 'top-left',
+                  align    = 'bottom-right',
                   elements = elements,
                 },
                 function(data, menu)
@@ -159,8 +160,9 @@ function OpenMecanoActionsMenu()
           else
 
             local elements = {
-              {label = _U('flat_bed'), value = 'flatbed'},
-              {label = _U('tow_truck'), value = 'towtruck'}
+              {label = 'flatbed',     value = 'flatbed'},
+              {label = 'tow truck',   value = 'towtruck'},
+			  {label = 'tow truck 2', value = 'towtruck2'},
             }
 
             if Config.EnablePlayerManagement and PlayerData.job ~= nil and
@@ -174,6 +176,7 @@ function OpenMecanoActionsMenu()
               'default', GetCurrentResourceName(), 'spawn_vehicle',
               {
                 title    = _U('service_vehicle'),
+				align    = 'bottom-right',
                 elements = elements
               },
               function(data, menu)
@@ -270,6 +273,7 @@ function OpenMecanoHarvestMenu()
       'default', GetCurrentResourceName(), 'mecano_harvest',
       {
         title    = _U('harvest'),
+		align    = 'bottom-right',
         elements = elements
       },
       function(data, menu)
@@ -316,6 +320,7 @@ function OpenMecanoCraftMenu()
       'default', GetCurrentResourceName(), 'mecano_craft',
       {
         title    = _U('craft'),
+		align    = 'bottom-right',
         elements = elements
       },
       function(data, menu)
@@ -370,6 +375,7 @@ function OpenMobileMecanoActionsMenu()
         ESX.UI.Menu.Open(
           'dialog', GetCurrentResourceName(), 'billing',
           {
+		    align    = 'bottom-right',
             title = _U('invoice_amount')
           },
           function(data, menu)
@@ -601,7 +607,7 @@ function OpenMobileMecanoActionsMenu()
           'default', GetCurrentResourceName(), 'mobile_mecano_actions_spawn',
           {
             title    = _U('objects'),
-            align    = 'top-left',
+            align    = 'bottom-right',
             elements = {
               {label = _U('roadcone'),     value = 'prop_roadcone02a'},
               {label = _U('toolbox'), value = 'prop_toolchest_01'},
@@ -662,6 +668,7 @@ function OpenGetStocksMenu()
       'default', GetCurrentResourceName(), 'stocks_menu',
       {
         title    = _U('mechanic_stock'),
+		align    = 'bottom-right',
         elements = elements
       },
       function(data, menu)
@@ -671,7 +678,8 @@ function OpenGetStocksMenu()
         ESX.UI.Menu.Open(
           'dialog', GetCurrentResourceName(), 'stocks_menu_get_item_count',
           {
-            title = _U('quantity')
+            title = _U('quantity'),
+			align = 'bottom-right',
           },
           function(data2, menu2)
 
@@ -723,6 +731,7 @@ ESX.TriggerServerCallback('esx_mecanojob:getPlayerInventory', function(inventory
       'default', GetCurrentResourceName(), 'stocks_menu',
       {
         title    = _U('inventory'),
+		align    = 'bottom-right',
         elements = elements
       },
       function(data, menu)
@@ -988,7 +997,7 @@ end)
 Citizen.CreateThread(function()
   while true do
 
-    Wait(0)
+    Citizen.Wait(10)
 
     if NPCTargetTowableZone ~= nil and not NPCHasSpawnedTowable then
 
@@ -1040,7 +1049,7 @@ end)
 -- Display markers
 Citizen.CreateThread(function()
   while true do
-    Wait(0)
+    Citizen.Wait(10)
     if PlayerData.job ~= nil and PlayerData.job.name == 'mecano' then
 
       local coords = GetEntityCoords(GetPlayerPed(-1))
@@ -1057,7 +1066,7 @@ end)
 -- Enter / Exit marker events
 Citizen.CreateThread(function()
   while true do
-    Wait(0)
+    Citizen.Wait(10)
     if PlayerData.job ~= nil and PlayerData.job.name == 'mecano' then
       local coords      = GetEntityCoords(GetPlayerPed(-1))
       local isInMarker  = false
@@ -1084,7 +1093,7 @@ end)
 Citizen.CreateThread(function()
   while true do
 
-    Citizen.Wait(0)
+    Citizen.Wait(10)
 
     local playerPed = GetPlayerPed(-1)
     local coords    = GetEntityCoords(playerPed)
@@ -1117,7 +1126,7 @@ end)
 -- Key Controls
 Citizen.CreateThread(function()
     while true do
-        Citizen.Wait(0)
+        Citizen.Wait(10)
 
         if CurrentAction ~= nil then
 
@@ -1169,11 +1178,11 @@ Citizen.CreateThread(function()
           end
         end
 
-        if IsControlJustReleased(0, Keys['F6']) and PlayerData.job ~= nil and PlayerData.job.name == 'mecano' then
+        if IsControlJustReleased(0, Keys['F6']) and GetLastInputMethod(2) and PlayerData.job ~= nil and PlayerData.job.name == 'mecano' then
             OpenMobileMecanoActionsMenu()
         end
 
-        if IsControlJustReleased(0, Keys['DELETE']) and PlayerData.job ~= nil and PlayerData.job.name == 'mecano' then
+        if IsControlJustReleased(0, Keys['DELETE']) and GetLastInputMethod(2) and PlayerData.job ~= nil and PlayerData.job.name == 'mecano' then
 
           if NPCOnJob then
 
